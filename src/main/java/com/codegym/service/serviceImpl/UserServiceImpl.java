@@ -33,8 +33,4 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id);
     }
 
-    @Override
-    public List<User> findByName(String name) {
-        return userRepository.findAllByNameContaining(name);
-    }
 }

@@ -19,7 +19,7 @@ public class User {
     @Column(unique = true)
     private String username;
     @NotEmpty(message = "Vui lòng nhập mật khẩu")
-    @Size(min = 6, max = 32)
+    @Size(min = 6, max = 32, message = "Vui lòng nhập mật khẩu từ 6-32 ký tự")
     private String password;
     @NotEmpty(message = "Vui lòng xác nhận mật khẩu")
     private String confirmPassword;
