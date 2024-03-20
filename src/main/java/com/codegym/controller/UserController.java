@@ -54,14 +54,14 @@ public class UserController {
         return new ResponseEntity<>("Xóa thành công", HttpStatus.OK);
     }
     @PostMapping("login")
-    public ResponseEntity<String> login(@RequestBody User user) {
+    public ResponseEntity<?> login(@RequestBody User user) {
             User currentUser = userService.findByUsernameAndPassword(user.getUsername(), user.getPassword());
             if (!userService.findUsernameExits(user.getUsername())) {
                 return new ResponseEntity<>("Tài khoản chưa được đăng ký", HttpStatus.BAD_REQUEST);
             } else if (currentUser == null) {
                 return new ResponseEntity<>("Mật khẩu không đúng", HttpStatus.BAD_REQUEST);
-            } else {
-                return new ResponseEntity<>("Đăng nhập thành công", HttpStatus.OK);
+            } else{
+                return new ResponseEntity<>(currentUser, HttpStatus.OK);
             }
         }
 }

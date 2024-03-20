@@ -31,4 +31,10 @@ public class User {
     private String phone;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime birthday = LocalDateTime.now();
+    private String avatar ;
+    private String fullname;
+    @Column(columnDefinition = "TEXT")
+    private String address;
+    @Column(columnDefinition = "TEXT")
+    private String hobby;
 }
