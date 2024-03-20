@@ -5,7 +5,7 @@ import com.codegym.model.User;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserService {
+public interface UserService extends IService<User> {
     void save(User user);
     void delete(Long id);
     List<User> findALl();
