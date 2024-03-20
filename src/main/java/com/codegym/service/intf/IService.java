@@ -1,4 +1,4 @@
-package com.codegym.service;
+package com.codegym.service.intf;
 
 import com.codegym.model.User;
 

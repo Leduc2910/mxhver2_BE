@@ -1,15 +1,12 @@
-package com.codegym.service;
+package com.codegym.service.intf;
 
 import com.codegym.model.User;
+import com.codegym.service.intf.IService;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UserService extends IService<User> {
-    void save(User user);
-    void delete(Long id);
-    List<User> findALl();
-    Optional<User> findById(Long id);
     boolean findUsernameExits(String username);
     boolean findEmailExits(String email);
     User findByUsernameAndPassword(String username,String password);
