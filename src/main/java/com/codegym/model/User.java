@@ -31,7 +31,7 @@ public class User {
     private String phone;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime birthday = LocalDateTime.now();
-    private String avatar ;
+    private String avatar = "https://firebasestorage.googleapis.com/v0/b/social-network-c9f60.appspot.com/o/images%2Favatar-default.png?alt=media&token=5d1fe836-096e-45b8-a2ea-a2028072305c";
     private String fullname;
     @Column(columnDefinition = "TEXT")
     private String address;
