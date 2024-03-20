@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -21,15 +22,13 @@ public class User {
     @NotEmpty(message = "Vui lòng nhập mật khẩu")
     @Size(min = 6, max = 32, message = "Vui lòng nhập mật khẩu từ 6-32 ký tự")
     private String password;
-    @NotEmpty(message = "Vui lòng xác nhận mật khẩu")
+    @NotEmpty(message = "Vui lòng xác nhận lại mật khẩu")
     private String confirmPassword;
     @NotEmpty(message = "Vui lòng nhập email")
     @Email(message = "Email không hợp lệ")
     @Column(unique = true)
     private String email;
-    @NotEmpty(message = "Vui lòng nhập số điện thoại")
     private String phone;
-    @NotEmpty(message = "Vui lòng nhập ngày sinh")
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date birthday;
+    private LocalDateTime birthday = LocalDateTime.now();
 }

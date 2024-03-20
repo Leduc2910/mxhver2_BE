@@ -10,4 +10,7 @@ public interface UserService {
     void delete(Long id);
     List<User> findALl();
     Optional<User> findById(Long id);
+    boolean findUsernameExits(String username);
+    boolean findEmailExits(String email);
+    User findByUsernameAndPassword(String username,String password);
 }
