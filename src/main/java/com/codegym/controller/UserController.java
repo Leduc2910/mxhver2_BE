@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("user")
@@ -53,15 +54,23 @@ public class UserController {
         userService.delete(id);
         return new ResponseEntity<>("Xóa thành công", HttpStatus.OK);
     }
+
     @PostMapping("login")
     public ResponseEntity<?> login(@RequestBody User user) {
-            User currentUser = userService.findByUsernameAndPassword(user.getUsername(), user.getPassword());
-            if (!userService.findUsernameExits(user.getUsername())) {
-                return new ResponseEntity<>("Tài khoản chưa được đăng ký", HttpStatus.BAD_REQUEST);
-            } else if (currentUser == null) {
-                return new ResponseEntity<>("Mật khẩu không đúng", HttpStatus.BAD_REQUEST);
-            } else{
-                return new ResponseEntity<>(currentUser, HttpStatus.OK);
-            }
+        User currentUser = userService.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+        if (!userService.findUsernameExits(user.getUsername())) {
+            return new ResponseEntity<>("Tài khoản chưa được đăng ký", HttpStatus.BAD_REQUEST);
+        } else if (currentUser == null) {
+            return new ResponseEntity<>("Mật khẩu không đúng", HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>(currentUser, HttpStatus.OK);
         }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        Optional<User> userOptional = userService.findById(id);
+        return userOptional.map(user -> ResponseEntity.ok().body(user))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 }
