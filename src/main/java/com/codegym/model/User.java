@@ -20,9 +20,10 @@ public class User {
     @Column(unique = true)
     private String username;
     @NotEmpty(message = "Vui lòng nhập mật khẩu")
-    @Size(min = 6, max = 32, message = "Vui lòng nhập mật khẩu từ 6-32 ký tự")
+    @Column(columnDefinition = "TEXT")
     private String password;
     @NotEmpty(message = "Vui lòng xác nhận lại mật khẩu")
+    @Column(columnDefinition = "TEXT")
     private String confirmPassword;
     @NotEmpty(message = "Vui lòng nhập email")
     @Email(message = "Email không hợp lệ")

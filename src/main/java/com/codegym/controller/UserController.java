@@ -1,5 +1,6 @@
 package com.codegym.controller;
 
+import com.codegym.configuration.PasswordSecurity;
 import com.codegym.model.User;
 import com.codegym.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,9 @@ public class UserController {
             } else if (!user.getPassword().equals(user.getConfirmPassword())) {
                 return new ResponseEntity<>("Mật khẩu không trùng khớp", HttpStatus.BAD_REQUEST);
             } else {
+                String password = PasswordSecurity.hashPassword(user.getPassword());
+                user.setPassword(password);
+                user.setConfirmPassword(password);
                 userService.save(user);
                 return new ResponseEntity<>("Đăng ký thành công", HttpStatus.CREATED);
             }
@@ -57,10 +61,10 @@ public class UserController {
 
     @PostMapping("login")
     public ResponseEntity<?> login(@RequestBody User user) {
-        User currentUser = userService.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+        User currentUser = userService.findUsername(user.getUsername());
         if (!userService.findUsernameExits(user.getUsername())) {
             return new ResponseEntity<>("Tài khoản chưa được đăng ký", HttpStatus.BAD_REQUEST);
-        } else if (currentUser == null) {
+        } else if (!PasswordSecurity.checkPass(user.getPassword(), currentUser.getPassword())) {
             return new ResponseEntity<>("Mật khẩu không đúng", HttpStatus.BAD_REQUEST);
         } else {
             return new ResponseEntity<>(currentUser, HttpStatus.OK);
